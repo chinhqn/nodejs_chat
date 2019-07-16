@@ -14,10 +14,11 @@ io.on("connection", function(socket){
         console.log("ngat ket noi : " + socket.id);
     });
     socket.on("Client-send-data", function(data){
+        // var tong = parseInt(data.numberA) + parseInt(data.numberB);
         console.log(data);
-        // io.sockets.emit("send-data-serve", data);//all()
-        // socket.broadcast.emit("send-data-serve", data);
-        socket.emit("send-data-serve", data);
+        io.sockets.emit("send-data-serve", data);//all()
+        // socket.broadcast.emit("send-data-serve", tong);
+        // socket.emit("send-data-serve", data);
     })
 })
 

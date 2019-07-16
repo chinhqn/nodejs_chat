@@ -10,20 +10,30 @@
     <script>
         var socket = io("http://localhost:3000");
         $(document).ready(function(){
-            $("#mrA").click(function(){
-                var input = $("#dataIn").val();
-                socket.emit("Client-send-data", input);
+            $(".chonMau").click(function(){
+                var mau = $(this).attr("mau");
+                console.log(mau);
+                socket.emit("Client-send-data", mau);
             })
             socket.on("send-data-serve", function(data){
                 console.log(data);
-                $("#dataClient").append(data+", ");
+                $(".background").css("background-color", data);
             })
         })
     </script>
 </head>
-<body>
-    <input id="dataIn" type="text">
-    <button class="btn" id="mrA">Click send</button>
-    <h2 id="dataClient"></h2>
+<body class="background">
+    <!-- <label for="">Số A:</label>
+    <input id="numberA" type="text">
+    <label for="">Số B:</label>
+    <input id="numberB" type="text"> -->
+    <div class="">
+        <!-- <button class="btn" id="mrA">Click send</button>
+        <h2 id="dataClient"></h2> -->
+        <button id="red" mau="red" class="chonMau">Đỏ</button>
+        <button id="green" mau="green" class="chonMau">Xanh</button>
+        <button id="yellow" mau="yellow" class="chonMau">Vàng</button>
+    </div>
+    
 </body>
 </html>
