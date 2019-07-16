@@ -1,22 +1,29 @@
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>socketIO</title>
     <script src="jquery.js"></script>
     <script src="socket.io/socket.io.js"></script>
     <script>
         var socket = io("http://localhost:3000");
+        $(document).ready(function(){
+            $("#mrA").click(function(){
+                var input = $("#dataIn").val();
+                socket.emit("Client-send-data", input);
+            })
+            socket.on("send-data-serve", function(data){
+                console.log(data);
+                $("#dataClient").append(data+", ");
+            })
+        })
     </script>
 </head>
 <body>
-    <h1>tran quoc chinh</h1>
+    <input id="dataIn" type="text">
+    <button class="btn" id="mrA">Click send</button>
+    <h2 id="dataClient"></h2>
 </body>
 </html>
-<script>
-    $(document).ready(function(){
-        // alert('1111111111');
-    })
-</script>
