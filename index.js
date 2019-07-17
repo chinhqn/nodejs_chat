@@ -6,21 +6,43 @@ app.set("views", "./views");
 var server = require("http").Server(app);
 var io = require("socket.io")(server);
 server.listen(3000);
-
+var userInfos = [];
+// var listUser = {};
 io.on("connection", function(socket){
     console.log("connection: " + socket.id);
+    // socketInfo[socket.id].socket =  socket;
+    // socketInfo[socket.id].data =  {}; //store socket related data here
+    // console.log(socketInfo);
 
-    socket.on("disconnect", function(){
-        console.log("ngat ket noi : " + socket.id);
+    socket.on("client-send-Username", function(data){
+        if(userInfos.indexOf(data)>=0){
+            socket.emit("server-send-regist-fail", "Tài khoản đã tồn tại");
+        }else{
+            userInfos.push(data);
+            socket.Username = data;
+            // listUser.Usernames = userInfos;
+            // listUser.currentUser = data;
+            socket.emit("server-send-regist-success", data);
+            io.sockets.emit("server-send-list-user", userInfos);
+        }
     });
-    socket.on("Client-send-data", function(data){
-        // var tong = parseInt(data.numberA) + parseInt(data.numberB);
-        console.log(data);
-        io.sockets.emit("send-data-serve", data);//all()
-        // socket.broadcast.emit("send-data-serve", tong);
-        // socket.emit("send-data-serve", data);
+    socket.on("client-send-logout", function(){
+        userInfos.splice(userInfos.indexOf(socket.Username), 1)
+        socket.broadcast.emit("server-send-list-user", userInfos);
     })
-})
+    socket.on("client-send-message", function(data){
+        io.sockets.emit("server-send-message", {un: socket.Username, nd: data});
+    })
+    socket.on("client-typing", function(){
+        var s = socket.Username + " " + " typing";
+        socket.broadcast.emit("server-send-typing", s);
+    })
+    socket.on("client-stop-typing", function(){
+        var s = socket.Username + "stop typing";
+        socket.broadcast.emit("server-stop-typing", socket.Username);
+    })
+    
+});
 
 app.get("/", function(req, res) {
     res.render("trangchu");

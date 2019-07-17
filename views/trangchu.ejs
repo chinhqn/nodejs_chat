@@ -1,5 +1,5 @@
-
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,33 +7,59 @@
     <title>socketIO</title>
     <script src="jquery.js"></script>
     <script src="socket.io/socket.io.js"></script>
-    <script>
-        var socket = io("http://localhost:3000");
-        $(document).ready(function(){
-            $(".chonMau").click(function(){
-                var mau = $(this).attr("mau");
-                console.log(mau);
-                socket.emit("Client-send-data", mau);
-            })
-            socket.on("send-data-serve", function(data){
-                console.log(data);
-                $(".background").css("background-color", data);
-            })
-        })
-    </script>
+    <script src="main.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
+
 <body class="background">
-    <!-- <label for="">Số A:</label>
-    <input id="numberA" type="text">
-    <label for="">Số B:</label>
-    <input id="numberB" type="text"> -->
-    <div class="">
-        <!-- <button class="btn" id="mrA">Click send</button>
-        <h2 id="dataClient"></h2> -->
-        <button id="red" mau="red" class="chonMau">Đỏ</button>
-        <button id="green" mau="green" class="chonMau">Xanh</button>
-        <button id="yellow" mau="yellow" class="chonMau">Vàng</button>
+    <div id="wrapper">
+        <div id="loginForm">
+            <div>
+                <div class="container">
+                    <h1>Register</h1>
+                    <label for="text"><b>User name</b></label>
+                    <input id="txtRegister" type="text" placeholder="Enter user name" id="txtUsername" name="username" required>
+                    <div id="error"></div>
+                    <button type="submit" class="registerbtn" id="btnRegister">Register</button>
+                </div>
+            </div>
+        </div>
+        <div class="chat-popup" id="chatForm">
+            <div class="list-user" id="left">
+                <ul id="boxContent">
+                    <!-- <li>1</li>
+                    <li>2</li>
+                    <li>3</li>
+                    <li>4</li> -->
+                </ul>
+            </div>
+            <div id="right">
+                <div class="form-container">
+                    <h1>Chat</h1>
+                    <h2><span id="nameNow"></span></h2>
+                    <div id="contentMessage">
+
+                    </div>
+                    <div class="" id="noty">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                    <div id="typing"></div>
+                    <label for="msg"><b>Message</b></label>
+                    <div class="chat">
+                        <input type="text" id="txtMessage">
+                        <button type="submit" id="btnSendMessage" class="btn" >Send</button>
+                    </div>
+                    <button type="button" id="logout" class="btn btn-danger cancel">Logout</button>
+                </div>
+            </div>
+            
+        </div>
     </div>
-    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>
