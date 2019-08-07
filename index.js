@@ -31,7 +31,10 @@ io.on("connection", function(socket){
         socket.broadcast.emit("server-send-list-user", userInfos);
     })
     socket.on("client-send-message", function(data){
-        io.sockets.emit("server-send-message", {un: socket.Username, nd: data});
+        console.log(socket)
+        // io.sockets.emit("server-send-message", {un: socket.Username, nd: data});
+        // io.to(socket.Username).emit('server-send-message', {un: socket.Username, nd: data});
+        socket.emit('server-send-message', {un: socket.Username, nd: data});
     })
     socket.on("client-typing", function(){
         var s = socket.Username + " " + " typing";

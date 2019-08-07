@@ -10,8 +10,14 @@ server.listen(3000);
 io.on('connection', function(socket){
     console.log("connection: " + socket.id);
     socket.on("tao-room", function(data){
-        console.log(data);
-        socket.join(data)
+        socket.join(data);
+        socket.Phong = data;
+        console.log(socket.adapter.rooms);
+        var mang = [];
+
+        for(r in socket.adapter.rooms){
+            mang.push(r);
+        }
     })
 })
 app.get("/", function(req, res) {

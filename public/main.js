@@ -18,6 +18,7 @@ socket.on("server-send-regist-success", function(data){
     $("#chatForm").show(1000);
 })
 socket.on("server-send-message", function(data){
+    console.log(data, 'vao');
     $("#contentMessage").append(
         "<div>" +
         "<span class='message'>"+data.un+"</span> :" +
