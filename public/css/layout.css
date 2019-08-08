@@ -166,3 +166,6 @@ a {
   color: rosybrown;
   font-size: 14px;
 }
+#right {
+  float: right;
+}

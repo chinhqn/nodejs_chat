@@ -12,12 +12,15 @@ io.on('connection', function(socket){
     socket.on("tao-room", function(data){
         socket.join(data);
         socket.Phong = data;
-        console.log(socket.adapter.rooms);
         var mang = [];
-
         for(r in socket.adapter.rooms){
-            mang.push(r);
+            mang.push(r)
         }
+        io.sockets.emit("server-send-rooms", mang)
+        socket.emit("server-send-room-client", data)
+    })
+    socket.on("chat-room", function(data){
+        io.sockets.in(socket.Phong).emit("server-send-mesage", data)
     })
 })
 app.get("/", function(req, res) {
